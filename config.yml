@@ -1,0 +1,47 @@
+datasource: ""
+lang: go
+orm-tag: xorm
+target-type: entity
+tpl-name:
+tpl-file:
+readonly: false
+output: ""
+skip-tables:
+skip-columns:
+type-map:
+package-name:
+use-local-date-time: false
+type-mapping:
+  int:
+    java: Integer
+    go: int
+  tinyint:
+    java: Integer
+    go: int
+  varchar:
+    java: String
+    go: string
+  text:
+    java: String
+    go: string
+  mediumtext:
+    java: String
+    go: string
+  longtext:
+    java: String
+    go: string
+  long:
+    java: Long
+    go: int64
+  bigint:
+    java: Long
+    go: int64
+  decimal:
+    java: BigDecimal
+    go: float64
+  datetime:
+    java: LocalDateTime
+    go: time.Time
+  timestamp:
+    java: LocalDateTime
+    go: time.Time

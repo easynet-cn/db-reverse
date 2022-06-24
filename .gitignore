@@ -1,0 +1,47 @@
+*.class
+.DS_Store
+/eclipse-build
+/classes
+**/build
+/idea-build
+**/dist
+**/lib
+/*~
+/build.properties
+/.idea
+**/*.iml
+**/*.ipr
+**/*.iws
+/.project
+/.classpath
+/.settings
+/.caches
+/.springBeans
+/.apt_generated
+/.factorypath
+/target
+/prj.el
+/bin
+/bin.*
+/nbproject
+/nb-build
+**/node_modules
+**/*.log
+**/*.log.*
+/logs
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+main
+__debug_bin
+.vscode/*
+/vendor
