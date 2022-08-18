@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	"gopkg.in/yaml.v3"
 )
@@ -26,7 +26,7 @@ type Configuration struct {
 }
 
 func init() {
-	data, err := ioutil.ReadFile("config.yml")
+	data, err := os.ReadFile("config.yml")
 
 	if err != nil {
 		fmt.Println(err)

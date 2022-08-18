@@ -76,12 +76,24 @@ func (c *DataColumn) IsDelStatus() bool {
 }
 
 func (c *DataColumn) Tag() string {
+	ormTag := GetConfiguration().OrmTag
+
+	if ormTag == "xorm" {
+		return c.xormTag()
+	} else if ormTag == "gorm" {
+		return c.gormTag()
+	}
+
+	return ""
+}
+
+func (c *DataColumn) xormTag() string {
 	name := strings.ToLower(c.ColumnName)
 	dataType := strings.ToLower(c.DataType)
 	identity := strings.ToLower(c.Extra) == "auto_increment"
 	primary := strings.ToLower(c.ColumnKey) == "pri"
 	nullable := strings.ToLower(c.IsNullable) == "yes"
-	ormTag := GetConfiguration().OrmTag
+	ormTag := "xorm"
 
 	sb := new(strings.Builder)
 
@@ -122,6 +134,49 @@ func (c *DataColumn) Tag() string {
 	sb.WriteString(" comment('")
 	sb.WriteString(c.ColumnComment)
 	sb.WriteString("')")
+
+	sb.WriteString("\" json:\"")
+
+	if name == "del_status" {
+		sb.WriteString("-")
+	} else {
+		sb.WriteString(LowerCamelCase(c.ColumnName))
+	}
+
+	sb.WriteString("\"`")
+
+	return sb.String()
+}
+
+func (c *DataColumn) gormTag() string {
+	name := strings.ToLower(c.ColumnName)
+	dataType := strings.ToLower(c.DataType)
+	identity := strings.ToLower(c.Extra) == "auto_increment"
+	primary := strings.ToLower(c.ColumnKey) == "pri"
+	nullable := strings.ToLower(c.IsNullable) == "yes"
+	ormTag := "gorm"
+
+	sb := new(strings.Builder)
+
+	sb.WriteString(fmt.Sprintf("`%s:\"", ormTag))
+	sb.WriteString(fmt.Sprintf("type:%s;", dataType))
+	sb.WriteString(fmt.Sprintf("column:%s;", name))
+
+	if identity {
+		sb.WriteString("autoIncrement;")
+	}
+
+	if primary {
+		sb.WriteString("primaryKey")
+	}
+
+	if !nullable {
+		sb.WriteString("not null;")
+	}
+
+	sb.WriteString(fmt.Sprintf("default:%s;", c.ColumnDefault))
+
+	sb.WriteString(fmt.Sprintf("comment:%s;", c.ColumnComment))
 
 	sb.WriteString("\" json:\"")
 
