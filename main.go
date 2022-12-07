@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"strings"
 	"text/template"
 	"unsafe"
@@ -127,6 +128,10 @@ func main() {
 		if err := t.Execute(f, &Config{TableName: table, Readonly: config.Readonly, PackageName: config.PackageName, Columns: columns}); err != nil {
 			fmt.Println("There was an error:", err.Error())
 		}
+	}
+
+	if err := exec.Command("gofmt", "-w", config.Output).Run(); err != nil {
+		fmt.Println("format source  error:", err.Error())
 	}
 
 }

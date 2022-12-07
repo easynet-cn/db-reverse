@@ -98,7 +98,7 @@ func (c *DataColumn) xormTag() string {
 	sb := new(strings.Builder)
 
 	sb.WriteString(fmt.Sprintf("`%s:\"", ormTag))
-	sb.WriteString(dataType)
+	sb.WriteString(c.ColumnType)
 	sb.WriteString(" '")
 	sb.WriteString(name)
 	sb.WriteString("'")
@@ -117,19 +117,21 @@ func (c *DataColumn) xormTag() string {
 		sb.WriteString(" notnull")
 	}
 
-	sb.WriteString(" default(")
+	if len(c.ColumnDefault) > 0 || (dataType == "varchar" || dataType == "text" || dataType == "longtext") {
+		sb.WriteString(" default(")
 
-	if dataType == "varchar" || dataType == "text" || dataType == "longtext" {
-		sb.WriteString("'")
+		if dataType == "varchar" || dataType == "text" || dataType == "longtext" {
+			sb.WriteString("'")
+		}
+
+		sb.WriteString(c.ColumnDefault)
+
+		if dataType == "varchar" || dataType == "text" || dataType == "longtext" {
+			sb.WriteString("'")
+		}
+
+		sb.WriteString(")")
 	}
-
-	sb.WriteString(c.ColumnDefault)
-
-	if dataType == "varchar" || dataType == "text" || dataType == "longtext" {
-		sb.WriteString("'")
-	}
-
-	sb.WriteString(")")
 
 	sb.WriteString(" comment('")
 	sb.WriteString(c.ColumnComment)
@@ -150,7 +152,6 @@ func (c *DataColumn) xormTag() string {
 
 func (c *DataColumn) gormTag() string {
 	name := strings.ToLower(c.ColumnName)
-	dataType := strings.ToLower(c.DataType)
 	identity := strings.ToLower(c.Extra) == "auto_increment"
 	primary := strings.ToLower(c.ColumnKey) == "pri"
 	nullable := strings.ToLower(c.IsNullable) == "yes"
@@ -159,7 +160,7 @@ func (c *DataColumn) gormTag() string {
 	sb := new(strings.Builder)
 
 	sb.WriteString(fmt.Sprintf("`%s:\"", ormTag))
-	sb.WriteString(fmt.Sprintf("type:%s;", dataType))
+	sb.WriteString(fmt.Sprintf("type:%s;", c.ColumnType))
 	sb.WriteString(fmt.Sprintf("column:%s;", name))
 
 	if identity {

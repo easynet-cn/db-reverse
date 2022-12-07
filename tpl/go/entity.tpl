@@ -1,4 +1,4 @@
-package entity
+package repository
 
 type {{upperCamelCase .TableName}} struct{
  	{{range $column := .Columns -}}
