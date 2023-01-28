@@ -3,9 +3,9 @@ module github.com/easynet-cn/db-reverse
 go 1.19
 
 require (
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-sql-driver/mysql v1.7.0
 	gopkg.in/yaml.v3 v3.0.1
-	xorm.io/xorm v1.3.1
+	xorm.io/xorm v1.3.2
 )
 
 require (
