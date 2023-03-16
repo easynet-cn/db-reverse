@@ -41,7 +41,16 @@ type-mapping:
     go: float64
   datetime:
     java: LocalDateTime
-    go: time.Time
+    go: string
   timestamp:
     java: LocalDateTime
-    go: time.Time
+    go: string
+  char:
+    java: String
+    go: string
+  date:
+    java: LocalDate
+    go: string
+  double:
+    java: Double
+    go: float64
