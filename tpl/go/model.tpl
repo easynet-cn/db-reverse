@@ -1,4 +1,4 @@
-package model
+package {{.PackageName}}
 
 type {{upperCamelCase .TableName}} struct{
  	{{- range $column := .Columns}}
