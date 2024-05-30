@@ -1,14 +1,15 @@
 module github.com/easynet-cn/db-reverse
 
-go 1.21
+go 1.22
 
 require (
-	github.com/go-sql-driver/mysql v1.7.1
+	github.com/go-sql-driver/mysql v1.8.1
 	gopkg.in/yaml.v3 v3.0.1
-	xorm.io/xorm v1.3.6
+	xorm.io/xorm v1.3.9
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/goccy/go-json v0.8.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
